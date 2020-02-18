@@ -7,8 +7,19 @@
     <body>
         <script>
             function computerPlay() {
-                let cpuChoice = ["rock", "paper", "scissors"]
-                return cpuChoice[random(0,3)]
+                let cpuChoice = ["rock", "paper", "scissors"];
+                return cpuChoice[random(0,3)];
+            }
+
+            function playerSelection() {
+                let playerChoice = prompt("Type choice: rock, paper or scissors");
+                while (true) {
+                    playerChoice = playerChoice.toLowerCase(); 
+                    if (playerChoice == "rock" || playerChoice == "paper" || playerChoice == "scissors") {
+                        return playerChoice;
+                    }
+                    playerChoice = prompt("Choice not recognized, Type choice: rock, paper or scissors");
+                }
             }
 
             function random(min, max) {
