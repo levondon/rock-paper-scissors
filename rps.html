@@ -28,13 +28,37 @@
 
             function playRound(player, computer) {
                 if (player == computer) {
-                    console.log(`Both players picked ${player}, tie game`)
+                    console.log(`Both players picked ${player}, tie game`);
                 } else if ((player == "rock" && computer == "scissors") || +
                     (player == "paper" && computer == "rock") || +
                     (player == "scissors" && computer == "paper")) {
-                        console.log(`You win! ${player} beats ${computer}!`)
+                    console.log(`You win! ${player} beats ${computer}!`);
+                    return 1;
                 } else {
-                    console.log(`You lose! ${computer} beats ${player}!`)
+                    console.log(`You lose! ${computer} beats ${player}!`);
+                    return 0;
+                }
+            }
+
+            function game() {
+                let gameCounter = 0;
+                let playerScore = 0;
+                let computerScore = 0;
+                while(gameCounter < 5) {
+                    gameCounter++
+                    let score = playRound(playerSelection(), computerPlay())
+                    if(score == 1) {
+                        playerScore++
+                    } else if(score == 0) {
+                        computerScore++
+                    }
+                }
+                if(playerScore > computerScore) {
+                    return `You Win! With a score of ${playerScore} vs ${computerScore}.`
+                } else if(playerScore < computerScore) {
+                    return `You Lose! With a score of ${playerScore} vs ${computerScore}.`
+                } else {
+                    return `Game is Tied, Both players scored ${playerScore}.`
                 }
             }
         </script>
