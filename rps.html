@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>JS RPS Game</title>
+    </head>
+    <body>
+        <script>
+            function computerPlay() {
+                let cpuChoice = ["rock", "paper", "scissors"]
+                return cpuChoice[random(0,3)]
+            }
+
+            function random(min, max) {
+                return Math.floor(Math.random() * (max - min)) + min;
+            }
+        </script>
+    </body>
+</html>
