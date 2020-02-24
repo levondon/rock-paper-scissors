@@ -1,65 +1,114 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="style.css" rel="stylesheet" type="text/css">
         <meta charset="UTF-8">
         <title>JS RPS Game</title>
     </head>
     <body>
-        <script>
-            function computerPlay() {
-                let cpuChoice = ["rock", "paper", "scissors"];
-                return cpuChoice[random(0,3)];
-            }
 
-            function playerSelection() {
-                let playerChoice = prompt("Type choice: rock, paper or scissors");
-                while (true) {
-                    playerChoice = playerChoice.toLowerCase(); 
-                    if (playerChoice == "rock" || playerChoice == "paper" || playerChoice == "scissors") {
-                        return playerChoice;
-                    }
-                    playerChoice = prompt("Choice not recognized, Type choice: rock, paper or scissors");
-                }
-            }
+        <button id="rock">ROCK</button>
+        <button id="paper">PAPER</button>
+        <button id="scissors">SCISSORS</button>
+        <div id="gameDiv">
+            <p id="gamePara"></p>
+        </div>
 
-            function random(min, max) {
-                return Math.floor(Math.random() * (max - min)) + min;
-            }
-
-            function playRound(player, computer) {
-                if (player == computer) {
-                    return `Both players picked ${player}, tie game`;
-                } else if ((player == "rock" && computer == "scissors") || +
-                    (player == "paper" && computer == "rock") || +
-                    (player == "scissors" && computer == "paper")) { 
-                    return `You win! ${player} beats ${computer}!`;
-                } else {
-                    return `You lose! ${computer} beats ${player}!`;
-                }
-            }
-
-            function game() {
-                let gameCounter = 0;
-                let playerScore = 0;
-                let computerScore = 0;
-                while(gameCounter < 5) {
-                    gameCounter++
-                    let score = playRound(playerSelection(), computerPlay())
-                    console.log(score);
-                    if(score.search("win") == 4) {
-                        playerScore++
-                    } else if(score.search("lose") == 4) {
-                        computerScore++
-                    }
-                }
-                if(playerScore > computerScore) {
-                    return `You Win! With a score of ${playerScore} vs ${computerScore}.`
-                } else if(playerScore < computerScore) {
-                    return `You Lose! With a score of ${playerScore} vs ${computerScore}.`
-                } else {
-                    return `Game is Tied, Both players scored ${playerScore}.`
-                }
-            }
-        </script>
     </body>
+
+
+    <script>
+        
+        let rock = document.getElementById('rock');
+        let paper = document.getElementById('paper');
+        let scissors = document.getElementById('scissors');
+
+        document.addEventListener('click', function(event) {
+            console.log(event.target);
+            if(event.target == rock) {
+                playRound('rock')
+            } else if(event.target == paper) {
+                playRound('paper')
+            } else if(event.target == scissors) {
+                playRound('scissors')
+            }
+        }) 
+        
+
+
+        function computerPlay() {
+            let cpuChoice = ["rock", "paper", "scissors"];
+            return cpuChoice[random(0,3)];
+        }
+
+
+        function random(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function gameDiv(text) {
+            console.log("IN DIV")
+            console.log(text)
+            let div = document.getElementById('gameDiv');
+            let para = document.getElementById('gamePara');
+            para.innerText = text;
+            div.appendChild(para);
+            
+
+        }
+
+        function playRound(player) {
+            console.log("HERE")
+            let computer = computerPlay();
+            console.log(`${player} and ${computer}`)
+            if (player == computer) {
+                console.log("TIE");
+                gameDiv(`Both players picked ${player}, tie game`);
+            } else if ((player == "rock" && computer == "scissors") || +
+                (player == "paper" && computer == "rock") || +
+                (player == "scissors" && computer == "paper")) { 
+                console.log("WIN");
+                gameDiv(`You win! ${player} beats ${computer}!`);
+            } else {
+                console.log("LOSE");
+                gameDiv(`You lose! ${computer} beats ${player}!`);
+            }
+        }
+
+        /*function playerSelection() {
+            let playerChoice = prompt("Type choice: rock, paper or scissors");
+            console.log(playerChoice)
+            console.log(e)
+            while (true) {
+                playerChoice = playerChoice.toLowerCase(); 
+                if (playerChoice == "rock" || playerChoice == "paper" || playerChoice == "scissors") {
+                    return playerChoice;
+                }
+                playerChoice = prompt("Choice not recognized, Type choice: rock, paper or scissors");
+            }
+        }*/
+        /*function game() {
+            let gameCounter = 0;
+            let playerScore = 0;
+            let computerScore = 0;
+            while(gameCounter < 5) {
+                gameCounter++
+                let score = playRound(playerSelection(), computerPlay())
+                console.log(score);
+                if(score.search("win") == 4) {
+                    playerScore++
+                } else if(score.search("lose") == 4) {
+                    computerScore++
+                }
+            }
+            if(playerScore > computerScore) {
+                return `You Win! With a score of ${playerScore} vs ${computerScore}.`
+            } else if(playerScore < computerScore) {
+                return `You Lose! With a score of ${playerScore} vs ${computerScore}.`
+            } else {
+                return `Game is Tied, Both players scored ${playerScore}.`
+            }
+        }*/
+    </script>
+    
 </html>
