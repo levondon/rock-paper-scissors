@@ -33,15 +33,15 @@
         document.addEventListener('click', function(event) {
             console.log(event.target);
             if(event.target == rock) {
-                gameCounter += 1
+                
                 keepScore(playRound('rock'))
                 writeScore()
             } else if(event.target == paper) {
-                gameCounter += 1
+                
                 keepScore(playRound('paper'))
                 writeScore()
             } else if(event.target == scissors) {
-                gameCounter += 1
+                
                 keepScore(playRound('scissors'))
                 writeScore()
             }
@@ -72,8 +72,15 @@
             console.log("IN SCORE")
             let div = document.getElementById('scoreDiv');
             let para = document.getElementById('scorePara');
-            if(gameCounter == 5) {
-                para.innerText = `FINAL SOCRE TODO`
+            if(gameCounter == 5 || playerScore == 3 || cpuScore == 3) {
+                if(playerScore > cpuScore) {
+                    para.innerHTML = `You WIN the best of Five!<br>${playerScore} to ${cpuScore}`
+                } else {
+                    para.innerHTML = `You LOSE the best of Five!<br>${playerScore} to ${cpuScore}`
+                }
+                gameCounter = 0;
+                playerScore = 0;
+                cpuScore = 0;
             } else {
                 para.innerHTML = `Player Score:${playerScore}<br>Computer Score:${cpuScore}`
                 div.appendChild(para)
@@ -101,10 +108,12 @@
                 (player == "scissors" && computer == "paper")) { 
                 console.log("WIN");
                 gameDiv(`You win! ${player} beats ${computer}!`);
+                gameCounter += 1;
                 return 1;
             } else {
                 console.log("LOSE");
                 gameDiv(`You lose! ${computer} beats ${player}!`);
+                gameCounter += 1;
                 return 0;
             }
         }
