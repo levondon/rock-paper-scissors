@@ -13,6 +13,9 @@
         <div id="gameDiv">
             <p id="gamePara"></p>
         </div>
+        <div id="scoreDiv">
+            <p id="scorePara"></p>
+        </div>
 
     </body>
 
@@ -23,14 +26,24 @@
         let paper = document.getElementById('paper');
         let scissors = document.getElementById('scissors');
 
+        let gameCounter = 0;
+        let playerScore = 0;
+        let cpuScore = 0;
+
         document.addEventListener('click', function(event) {
             console.log(event.target);
             if(event.target == rock) {
-                playRound('rock')
+                gameCounter += 1
+                keepScore(playRound('rock'))
+                writeScore()
             } else if(event.target == paper) {
-                playRound('paper')
+                gameCounter += 1
+                keepScore(playRound('paper'))
+                writeScore()
             } else if(event.target == scissors) {
-                playRound('scissors')
+                gameCounter += 1
+                keepScore(playRound('scissors'))
+                writeScore()
             }
         }) 
         
@@ -53,8 +66,26 @@
             let para = document.getElementById('gamePara');
             para.innerText = text;
             div.appendChild(para);
-            
+        }
 
+        function writeScore() {
+            console.log("IN SCORE")
+            let div = document.getElementById('scoreDiv');
+            let para = document.getElementById('scorePara');
+            if(gameCounter == 5) {
+                para.innerText = `FINAL SOCRE TODO`
+            } else {
+                para.innerHTML = `Player Score:${playerScore}<br>Computer Score:${cpuScore}`
+                div.appendChild(para)
+            }
+        }
+
+        function keepScore(winner) {
+            if(winner == 1) {
+                playerScore += 1
+            } else if(winner == 0) {
+                cpuScore += 1
+            }
         }
 
         function playRound(player) {
@@ -64,14 +95,17 @@
             if (player == computer) {
                 console.log("TIE");
                 gameDiv(`Both players picked ${player}, tie game`);
+                return -1;
             } else if ((player == "rock" && computer == "scissors") || +
                 (player == "paper" && computer == "rock") || +
                 (player == "scissors" && computer == "paper")) { 
                 console.log("WIN");
                 gameDiv(`You win! ${player} beats ${computer}!`);
+                return 1;
             } else {
                 console.log("LOSE");
                 gameDiv(`You lose! ${computer} beats ${player}!`);
+                return 0;
             }
         }
 
